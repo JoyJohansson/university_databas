@@ -18,9 +18,9 @@ AS(
     AS branch_name
     FROM university.students
     JOIN university.programs
-    ON university.students.program_code = university.programs.code
+    ON university.students.program_id = university.programs.id
     JOIN university.branches
-    ON university.students.branch_code = university.branches.code);
+    ON university.students.branch_id = university.branches.id);
 
 
 SELECT * FROM university.basic_information;

@@ -26,6 +26,12 @@ Om en kurs blir fulltecknad sätts efteranmälda studenter upp på en väntelist
 En studieadministratör (en person med direkt tillgång till databasen) kan åsidosätta både förkunskapskrav och storleksbegränsningar och lägga till en student direkt som registrerad på en kurs.
 
 
+
+
+
+
+
+
 Din uppgift är att designa en databas enligt instruktioner nedan. Läs noga igenom domänbeskrivningen. Den är ganska komplex, så jag finns alltid här för att svara på frågor om domänen.
 
 Uppgiften är indelad i flera steg och har en inlämning kopplad till varje steg. Allting lämnas in via LearnPoint.
@@ -81,36 +87,3 @@ Du ska nu skapa en enkel frontend för databasen. Du får själv välja vilken f
 Du ska nu göra något högst ovanligt i den här uppgiften. Du ska medvetet introducera en möjlighet för att användaren att utföra en SQL-injection via din frontend. I kommentarer i koden anger du hur man skulle gå tillväga för att utnyttja den här svagheten. Kommentera också hur du skulle fixa detta.
 
 Inlämning: En fil app.py eller en länk till GitHub-repo.
-
-SQL-examples:
--- idnr=national identification number (10 digits)
-students(idnr, name, program)
-branches(name, program) 
-courses(code, name, credits, department)
-limited_courses(code, capacity)
-code → courses.code
-student_branches(student, branch, program)
-student → students.idnr
-(branch, program) → branches.(name, program)
-classifications(name)
-classified(course, classification)
-course → courses.code
-classification → classifications.name
-mandatory_program(course, program)
-course → courses.code
-mandatory_branch(course, branch, program)
-course → courses.code 
-(branch, program) → branches.(name, program)
-recommended_branch(course, branch, program)
-course → courses.code
-(branch, program) → branches.(name, program)
-registered(student, course)
-student → students.idnr
-course → courses.code
-taken(student, course, grade)
-student → students.idnr
-course → courses.code
--- position is either a SERIAL, a TIMESTAMP or the actual position
-waiting_list(student, course, position)
-student → students.idnr
-course → limited_courses.code

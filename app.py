@@ -8,7 +8,7 @@ app =Flask(__name__)
 def render_index():
     return render_template("index.html")
 
-
+"""
 @app.route("/submit", methods=["POST"])
 def submit():
     salary = request.form.get("student")
@@ -16,6 +16,9 @@ def submit():
     if query_result is None:
         query_result = []
     return render_template("index.html", data=query_result)
+
+    
+    """
 
 
 if __name__ == "main":
