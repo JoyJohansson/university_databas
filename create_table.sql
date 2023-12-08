@@ -88,28 +88,31 @@ CREATE TABLE IF NOT EXISTS university.students (
     CHECK (LENGTH(social_security_number) = 10)
 );
 
+CREATE TABLE IF NOT EXISTS university.limited_courses (
+    course_code VARCHAR(6) PRIMARY KEY,
+    max_students INT NOT NULL,
+    FOREIGN KEY (course_code) REFERENCES university.courses (code) ON DELETE CASCADE
+);
+
 CREATE TABLE IF NOT EXISTS university.waitlist (
     id SERIAL PRIMARY KEY,
     student_social_security_number VARCHAR(10),
     FOREIGN KEY (student_social_security_number) REFERENCES university.students (social_security_number) ON DELETE CASCADE,
-    registration_date DATE DEFAULT CURRENT_DATE
+    course_code VARCHAR(5),
+    FOREIGN KEY (course_code) REFERENCES university.limited_courses (course_code) ON DELETE CASCADE,
+    registration_date DATE DEFAULT CURRENT_DATE,
+    UNIQUE (course_code, student_social_security_number)
 );
 
-CREATE TABLE IF NOT EXISTS university.limited_courses (
-    course_code VARCHAR(6) PRIMARY KEY,
-    max_students INT NOT NULL,
-    FOREIGN KEY (course_code) REFERENCES university.courses (code) ON DELETE CASCADE,
-    waitlist_id INT,
-    FOREIGN KEY (waitlist_id) REFERENCES university.waitlist (id) ON DELETE CASCADE
-);
-
+DROP TABLE university.student_course_registrations CASCADE;
 CREATE TABLE IF NOT EXISTS university.student_course_registrations (
     id SERIAL PRIMARY KEY,
     student_social_security_number VARCHAR(10) NOT NULL,
     FOREIGN KEY (student_social_security_number) REFERENCES university.students (social_security_number) ON DELETE CASCADE,
     course_code VARCHAR(6),
     FOREIGN KEY (course_code) REFERENCES university.courses (code),
-    registration_date DATE DEFAULT CURRENT_DATE
+    registration_date DATE DEFAULT CURRENT_DATE,
+    UNIQUE (student_social_security_number, course_code)
 );
 
 CREATE TABLE IF NOT EXISTS university.study_administrators (

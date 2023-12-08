@@ -20,7 +20,7 @@ AS(
     JOIN university.programs
     ON university.students.program_code = university.programs.code
     JOIN university.branches
-    ON university.programs.branch_code = university.branches.code);
+    ON university.students.branch_code = university.branches.code);
 
 
 SELECT * FROM university.basic_information;
@@ -72,7 +72,7 @@ CREATE VIEW university.registrations
 AS(
 SELECT
     university.students.social_security_number 
-    AS student_social_security_number,
+    AS student,
     university.courses.code 
     AS course_code,
     CASE
@@ -98,6 +98,33 @@ LEFT JOIN
     AND university.courses.code = university.student_course_registrations.course_code);
 
 SELECT * FROM university.registrations;
+
+
+
+SELECT student_social_security_number AS student, course_code,
+    CASE
+        WHEN university.student_course_registrations.id IS NOT NULL THEN 'registered'
+    END AS status
+FROM university.student_course_registrations
+UNION
+SELECT student_social_security_number AS student, course_code,
+    CASE
+        WHEN university.waitlist.id IS NOT NULL THEN 'waiting'
+    END AS status
+FROM university.waitlist
+ORDER BY course_code;
+
+INSERT INTO university.waitlist (student_social_security_number, course_code)
+VALUES ('1234567890', 'CS101');
+
+UPDATE university.limited_courses SET waitlist_id = 1
+WHERE course_code = 'CS101';
+
+--> constraint som gör att man inte kan vara registrerad 
+    på en kurs som man står på väntelista till
+--> constraint limited_courses.waitlist.id = unique
+
+
 
 -- unread_mandatory(student, course) Olästa obligatoriska kurser för varje student.
 

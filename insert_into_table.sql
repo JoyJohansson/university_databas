@@ -104,9 +104,9 @@ VALUES
   ('1234567890', 'CS104');
 
 
-INSERT INTO university.waitlist (student_social_security_number)
+INSERT INTO university.waitlist (student_social_security_number, course_code)
 VALUES
-  ((SELECT social_security_number FROM university.students LIMIT 1));
+  ('1234567890', 'CS103');
 
 
 INSERT INTO university.Study_administrators (name)
@@ -121,7 +121,7 @@ VALUES
 
 
 INSERT INTO university.program_mandatory_courses (program_id, course_code)
-VALUES
+Vprogram_institutionsALUES
   (1, 'CS101'),
   (1, 'CS102');
 
