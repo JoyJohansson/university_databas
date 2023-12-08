@@ -7,9 +7,6 @@ from flask import Flask, render_template, request
 from psycopg2 import connect, DatabaseError
 
 
-app = Flask(__name__)
-
-
 def execute_query(query, parameters=None):
     """Ansluter till databasen"""
     conn = None
@@ -18,7 +15,7 @@ def execute_query(query, parameters=None):
             dbname="postgres",
             user="postgres",
             host="localhost",
-            password="123",
+            password=os.getenv("DB_PASSWORD"),
         )
         with conn.cursor() as cursor: #returnerar en cursor
             cursor.execute(query, parameters) # kör en query
@@ -31,7 +28,3 @@ def execute_query(query, parameters=None):
     finally:
         if conn:
             conn.close()
-
-
-if __name__ == "main":
-    app.run()
