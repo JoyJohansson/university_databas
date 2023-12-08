@@ -1,1 +1,0 @@
-DB_PASSWORD=Jc1489jc
