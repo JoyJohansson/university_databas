@@ -67,7 +67,7 @@ SELECT * FROM university.passed_courses;
 
 
 -- registrations(student, course, status) Alla registrerade och väntande studenter för olika kurser. Statusen kan antingen vara ’waiting’ eller ’registered’.
-
+"""
 CREATE VIEW university.registrations 
 AS(
 SELECT
@@ -98,10 +98,10 @@ LEFT JOIN
     AND university.courses.code = university.student_course_registrations.course_code);
 
 SELECT * FROM university.registrations;
+"""
 
-
-
-SELECT student_social_security_number AS student, course_code,
+CREATE VIEW registrations AS
+(SELECT student_social_security_number AS student, course_code,
     CASE
         WHEN university.student_course_registrations.id IS NOT NULL THEN 'registered'
     END AS status
@@ -112,7 +112,9 @@ SELECT student_social_security_number AS student, course_code,
         WHEN university.waitlist.id IS NOT NULL THEN 'waiting'
     END AS status
 FROM university.waitlist
-ORDER BY course_code;
+ORDER BY course_code);
+
+SELECT * FROM registrations WHERE student = '1234567890';
 
 INSERT INTO university.waitlist (student_social_security_number, course_code)
 VALUES ('1234567890', 'CS101');
