@@ -88,13 +88,12 @@ VALUES
   ('4', 'Good'),
   ('3', 'Pass'),
   ('U', 'Fail');
-
-  
+ 
 INSERT INTO university.students (social_security_number, name, program_id, branch_id, current_year, current_term, earned_credits)
   VALUES
-  ('1234567890', '<NAME>', 1, 1, 2021, 1, 10),
-  ('1234567891', '<NAME>', 1, 1, 2021, 1, 10),
-  ('1234567892', '<NAME>', 1, 1, 2021, 1, 10);
+  ('1234567890', 'Anna Hansson', 1, 1, 2021, 1, 10),
+  ('1234567891', 'Viktor Bengtsson', 1, 1, 2021, 1, 10),
+  ('1234567892', 'Frida Andersson', 1, 1, 2021, 1, 10);
 
 INSERT INTO university.student_course_registrations (student_social_security_number, course_code)
 VALUES
@@ -106,7 +105,7 @@ VALUES
 
 INSERT INTO university.waitlist (student_social_security_number, course_code)
 VALUES
-  ('1234567890', 'CS103');
+  ('1234567890', 'CS101');
 
 
 INSERT INTO university.Study_administrators (name)
