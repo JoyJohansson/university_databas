@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS university.institutions (
 
 CREATE TABLE IF NOT EXISTS university.programs (
     id  SERIAL PRIMARY KEY,
-    namSERIALe VARCHAR(255) UNIQUE NOT NULL,
+    name VARCHAR(255) UNIQUE NOT NULL,
     code VARCHAR(50) UNIQUE NOT NULL
 );
 
@@ -90,9 +90,9 @@ CREATE TABLE IF NOT EXISTS university.students (
 
 CREATE TABLE IF NOT EXISTS university.limited_courses (
     course_code VARCHAR(6) PRIMARY KEY,
-    FOREIGN KEY (course_code) REFERENCES university.courses (code) ON DELETE CASCADE
+    FOREIGN KEY (course_code) REFERENCES university.courses (code) ON DELETE CASCADE,
     max_students INT NOT NULL,
-    CHECK (max_students > 0),
+    CHECK (max_students > 0)
 );
 
 
@@ -154,15 +154,6 @@ CREATE TABLE IF NOT EXISTS university.branch_recommended_courses (
     course_code VARCHAR(6),
     FOREIGN KEY (course_code) REFERENCES university.courses (code) ON DELETE CASCADE,
     PRIMARY KEY (branch_id, course_code)
-);
-
-CREATE TABLE IF NOT EXISTS university.waitlist (
-    id SERIAL PRIMARY KEY,
-    course_code VARCHAR(6) NOT NULL,
-    FOREIGN KEY (course_code) REFERENCES university.limited_courses (course_code) ON DELETE CASCADE,
-    student_social_security_number VARCHAR(10) NOT NULL,
-    FOREIGN KEY (student_social_security_number) REFERENCES university.students (social_security_number) ON DELETE CASCADE,
-    registration_date DATE DEFAULT CURRENT_DATE
 );
 
 CREATE TABLE IF NOT EXISTS university.student_completed_courses (

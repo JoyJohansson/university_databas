@@ -1,9 +1,7 @@
-
 INSERT INTO university.institutions (name, abbreviation) 
 VALUES
     ('Computer Science', 'CS'),
     ('Computer Engineering', 'CE');
-
 
 INSERT INTO university.programs (name, code)
 VALUES
@@ -20,13 +18,23 @@ VALUES
 ('Algorithms', 2, 1),
 ('Computer Software technology', 3, 1);
 
-
-
 INSERT INTO university.program_branches (program_id, branch_id)
 VALUES
 (1, 1),
 (1, 3),
 (1, 2);
+
+INSERT INTO university.classifications (name)
+VALUES
+  ('Undergraduate'),
+  ('Graduate');
+
+INSERT INTO university.grades (symbol, description)
+VALUES 
+  ('5', 'Excellent'),
+  ('4', 'Good'),
+  ('3', 'Pass'),
+  ('U', 'Fail');
 
 INSERT INTO university.courses (code, name, institution_id, credits, classification_id, grade_ceiling)
 VALUES
@@ -46,24 +54,6 @@ VALUES
   ('CS114', 'Software Project Management', 1, 3, 1, 4),
   ('CS115', 'Software Quality Assurance', 1, 3, 1, 4),
   ('CS116', 'Software Maintenance', 1, 3, 1, 4);
-  
-INSERT INTO university.classifications (name)
-VALUES
-  ('Undergraduate'),
-  ('Graduate');
-
-INSERT INTO university.courses (code, name, institution_id, credits, classification_id, grade_ceiling)
-VALUES
-  ('CS101', 'Introduction to Computer Science', 1, 3, 1, 4),
-  ('CS102', 'Data Structures', 1, 3, 1, 4),
-  ('CS103', 'Computer Architecture', 1, 3, 1, 4),
-  ('CS104', 'Operating Systems', 1, 3, 1, 4),
-  ('CS105', 'Database Systems', 1, 3, 1, 4),
-  ('CS106', 'Computer Networks', 1, 3, 1, 4),
-  ('CS107', 'Computer Graphics', 1, 3, 1, 4),
-  ('CS108', 'Computer Security', 1, 3, 1, 4),
-  ('CS109', 'Artificial Intelligence', 1, 3, 1, 4),
-  ('CS110', 'Computer Vision', 1, 3, 1, 4);
 
 INSERT INTO university.prerequisites_courses (course_code, prerequisite_code)
 VALUES
@@ -73,21 +63,12 @@ VALUES
   ('CS104', 'CS103'),
   ('CS105', 'CS104');
 
-
-
 INSERT INTO university.limited_courses (course_code, max_students)
 VALUES
   ('CS101', 20),
   ('CS102', 20),
   ('CS103', 20),
   ('CS104', 10);
-
-INSERT INTO university.grades (symbol, description)
-VALUES 
-  ('5', 'Excellent'),
-  ('4', 'Good'),
-  ('3', 'Pass'),
-  ('U', 'Fail');
  
 INSERT INTO university.students (social_security_number, name, program_id, branch_id, current_year, current_term, earned_credits)
   VALUES
@@ -102,42 +83,32 @@ VALUES
   ('1234567890', 'CS104'),
   ('1234567890', 'CS105');
 
-
 INSERT INTO university.waitlist (student_social_security_number, course_code)
 VALUES
   ('1234567890', 'CS101');
-
 
 INSERT INTO university.Study_administrators (name)
 VALUES
   ('<NAME>');
 
-
 INSERT INTO university.override_logs (administrator_id, course_code, student_social_security_number)
 VALUES
   (1, 'CS101', '1234567890');
 
-
-
 INSERT INTO university.program_mandatory_courses (program_id, course_code)
-Vprogram_institutionsALUES
+VALUES
   (1, 'CS101'),
   (1, 'CS102');
-
-
 
 INSERT INTO university.branch_mandatory_courses (branch_id, course_code)
 VALUES
   (1, 'CS101'),
   (1, 'CS102');
 
-
-
 INSERT INTO university.branch_recommended_courses (branch_id, course_code)
 VALUES
   (1, 'CS103'),
   (1, 'CS104');
-
 
 INSERT INTO university.courses_classification (course_code, classification_id)
 VALUES
@@ -146,7 +117,7 @@ VALUES
 
 INSERT INTO university.student_completed_courses(student_social_security_number,course_code, grade)
 VALUES
-((SELECT social_security_number FROM university.students LIMIT 1), 'CS104', '3');
-((SELECT social_security_number FROM university.students LIMIT 1), 'CS110', '5'),
-((SELECT social_security_number FROM university.students LIMIT 1), (SELECT code FROM university.courses LIMIT 1), '5'),
-((SELECT social_security_number FROM university.students ORDER BY social_security_number DESC LIMIT 1), (SELECT code FROM university.courses LIMIT 1), 'U');
+('1234567890', 'CS104', '3'),
+('1234567890', 'CS110', '5'),
+('1234567891', 'CS102', '5'),
+('1234567891', 'CS101', 'U');
