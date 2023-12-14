@@ -1,8 +1,12 @@
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f5f5f5;
+    background-color:lightseagreen;
     margin: 0;
     padding: 0;
+    background-image: url('/static/background.jpg'); 
+    background-size: cover;  
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 header {
