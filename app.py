@@ -39,6 +39,7 @@ def register_student():
                     (social_security_number, name, program_id) 
                     VALUES (%s, %s, %s)"""
     database.execute_query(sql_register, (ssn, name, program))
+    return "Student successfully registered!"
 
 if __name__ == "main":
     app.run()
