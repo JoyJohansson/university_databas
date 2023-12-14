@@ -4,11 +4,18 @@ CREATE OR REPLACE FUNCTION university.check_prerequisites()
 RETURNS TRIGGER AS $$
 BEGIN
     IF (
-      (SELECT prerequisite_code FROM university.Prerequisites 
-        WHERE course_code = NEW.course_code) NOT IN -- TODO test
-      (SELECT course_code FROM university.Student_completed_courses)
-    ) THEN
-      RAISE EXCEPTION 'Förkunskapskrav inte uppfyllda';
+      (SELECT prerequisite_code FROM university.Prerequisites_Courses 
+        WHERE course_code = NEW.course_code) IS NOT NULL 
+    ) THEN 
+      IF (
+        (SELECT prerequisite_code FROM university.Prerequisites_Courses 
+          WHERE course_code = NEW.course_code)
+          NOT IN 
+        (SELECT course_code FROM university.Student_completed_courses 
+          WHERE student_social_security_number = NEW.student_social_security_number)
+      ) THEN
+        RAISE EXCEPTION 'Förkunskapskrav inte uppfyllda';
+      END IF;
     END IF;
     RETURN NEW; 
 END;

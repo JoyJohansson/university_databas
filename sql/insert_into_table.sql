@@ -97,10 +97,10 @@ INSERT INTO university.students (social_security_number, name, program_id, branc
 
 INSERT INTO university.student_course_registrations (student_social_security_number, course_code)
 VALUES
-  ('1234567890', 'CS101'),
   ('1234567890', 'CS102'),
   ('1234567890', 'CS103'),
   ('1234567890', 'CS104');
+  ('1234567890', 'CS105'),
 
 
 INSERT INTO university.waitlist (student_social_security_number, course_code)
@@ -146,5 +146,7 @@ VALUES
 
 INSERT INTO university.student_completed_courses(student_social_security_number,course_code, grade)
 VALUES
+((SELECT social_security_number FROM university.students LIMIT 1), 'CS104', '3');
+((SELECT social_security_number FROM university.students LIMIT 1), 'CS110', '5'),
 ((SELECT social_security_number FROM university.students LIMIT 1), (SELECT code FROM university.courses LIMIT 1), '5'),
 ((SELECT social_security_number FROM university.students ORDER BY social_security_number DESC LIMIT 1), (SELECT code FROM university.courses LIMIT 1), 'U');

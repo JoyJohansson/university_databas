@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS university.prerequisites_courses (
 );
 
 CREATE TABLE IF NOT EXISTS university.students (
-    social_security_number VARCHAR(10) PRIMARY KEY UNIQUE NOT NULL,
+    social_security_number VARCHAR(10) PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     program_id INT NOT NULL,
     FOREIGN KEY (program_id) REFERENCES university.programs (id) ON DELETE CASCADE,

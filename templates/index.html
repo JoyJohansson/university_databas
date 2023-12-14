@@ -56,7 +56,7 @@
                         // Update UI with student data
                         studentsList.innerHTML = ''; // Clear previous content
                         data.forEach(student => {
-                            studentsList.innerHTML += `<p>${student.name}</p>`;
+                            studentsList.innerHTML += `<p>${student[1]}</p>`;
                         });
                     })
                     .catch(error => console.error('Error:', error));
@@ -71,7 +71,7 @@
                         // Update User interface with student courses data
                         coursesList.innerHTML = ''; // Clear previous content
                         data.forEach(course => {
-                            coursesList.innerHTML += `<p>${course.course_name}</p>`;
+                            coursesList.innerHTML += `<p>${course[0]}</p>`;
                         });
                     })
                     .catch(error => console.error('Error:', error));
