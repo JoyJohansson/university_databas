@@ -99,8 +99,8 @@ INSERT INTO university.student_course_registrations (student_social_security_num
 VALUES
   ('1234567890', 'CS102'),
   ('1234567890', 'CS103'),
-  ('1234567890', 'CS104');
-  ('1234567890', 'CS105'),
+  ('1234567890', 'CS104'),
+  ('1234567890', 'CS105');
 
 
 INSERT INTO university.waitlist (student_social_security_number, course_code)
