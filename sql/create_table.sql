@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS university.programs (
     code VARCHAR(50) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS university.program_institutions (
+CREATE TABLE IF NOT EXISTS university.programs_institution (
     program_id INT,
     FOREIGN KEY (program_id) REFERENCES university.programs (id) ON DELETE CASCADE,
     institution_id INT,
@@ -34,16 +34,9 @@ CREATE TABLE IF NOT EXISTS university.branches (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     recommended_courses_requirment_minimum INT,
-    program_id INT,
+    program_id INT NOT NULL,
     FOREIGN KEY (program_id) REFERENCES university.programs (id) ON DELETE CASCADE
-);
-
-CREATE TABLE IF NOT EXISTS university.program_branches (
-    program_id INT,
-    branch_id INT,
-    PRIMARY KEY (program_id, branch_id),
-    FOREIGN KEY (program_id) REFERENCES university.programs (id) ON DELETE CASCADE,
-    FOREIGN KEY (branch_id) REFERENCES university.branches (id) ON DELETE CASCADE
+    UNIQUE (name, program_id);
 );
 
 CREATE TABLE IF NOT EXISTS university.courses (
@@ -58,7 +51,7 @@ CREATE TABLE IF NOT EXISTS university.courses (
     FOREIGN KEY (grade_ceiling) REFERENCES university.grades (symbol)
 );
 
-CREATE TABLE IF NOT EXISTS university.courses_classification (
+CREATE TABLE IF NOT EXISTS university.courses_classifications (
     course_code VARCHAR(6),
     FOREIGN KEY (course_code) REFERENCES university.courses (code) ON DELETE CASCADE,
     classification_id INT,
@@ -96,11 +89,11 @@ CREATE TABLE IF NOT EXISTS university.limited_courses (
 );
 
 
-CREATE TABLE IF NOT EXISTS university.waitlist (
+CREATE TABLE IF NOT EXISTS university.waitlists (
     id SERIAL PRIMARY KEY,
-    student_social_security_number VARCHAR(10),
+    student_social_security_number VARCHAR(10) NOT NULL,
     FOREIGN KEY (student_social_security_number) REFERENCES university.students (social_security_number) ON DELETE CASCADE,
-    course_code VARCHAR(5),
+    course_code VARCHAR(6) NOT NULL,
     FOREIGN KEY (course_code) REFERENCES university.limited_courses (course_code) ON DELETE CASCADE,
     registration_date TIMESTAMP DEFAULT clock_timestamp(),
     UNIQUE (course_code, student_social_security_number)
@@ -123,7 +116,7 @@ CREATE TABLE IF NOT EXISTS university.study_administrators (
 
 CREATE TABLE IF NOT EXISTS university.override_logs (
     id SERIAL PRIMARY KEY,
-    administrator_id INT,
+    administrator_id INT NOT NULL,
     FOREIGN KEY (administrator_id) REFERENCES university.study_administrators (id) ON DELETE CASCADE,
     course_code VARCHAR(6),
     FOREIGN KEY (course_code) REFERENCES university.courses (code) ON DELETE CASCADE,
@@ -157,12 +150,12 @@ CREATE TABLE IF NOT EXISTS university.branch_recommended_courses (
 );
 
 CREATE TABLE IF NOT EXISTS university.student_completed_courses (
-  student_social_security_number VARCHAR(10),
+  student_social_security_number VARCHAR(10) NOT NULL,
   FOREIGN KEY (student_social_security_number) REFERENCES university.students (social_security_number) ON DELETE CASCADE,
-  course_code VARCHAR(6),
+  course_code VARCHAR(6) NOT NULL,
   FOREIGN KEY (course_code) REFERENCES university.courses (code) ON DELETE CASCADE,
   PRIMARY KEY (student_social_security_number, course_code),
-  grade VARCHAR,
+  grade VARCHAR NOT NULL,
   FOREIGN KEY (grade) REFERENCES university.grades (symbol) ON DELETE CASCADE,
   completed_date DATE DEFAULT CURRENT_DATE
 );
@@ -191,7 +184,7 @@ END;
 $$ LANGUAGE plpgsql;
 
 -- Trigger för att kontrollera förkunskapskrav innan studentregistrering
-CREATE OR REPLACE TRIGGER before_student_registration
+CREATE OR REPLACE TRIGGER before_student_registrations
 BEFORE INSERT ON university.Student_course_registrations
 FOR EACH ROW
 EXECUTE FUNCTION university.check_prerequisites();
@@ -226,7 +219,7 @@ DECLARE
 BEGIN
     -- Hitta nästa student på väntelistan för kursen
     SELECT * INTO next_waitlist_student
-    FROM university.Waitlist
+    FROM university.Waitlists
     WHERE course_code = NEW.course_code
     ORDER BY registration_date
     LIMIT 1;
@@ -268,6 +261,6 @@ $$ LANGUAGE plpgsql;
 
 
 CREATE TRIGGER before_adding_to_waitlist
-BEFORE INSERT ON university.waitlist
+BEFORE INSERT ON university.waitlists
 FOR EACH ROW
 EXECUTE FUNCTION university.restrict_adding_to_waitlist();

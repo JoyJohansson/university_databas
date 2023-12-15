@@ -7,7 +7,7 @@ INSERT INTO university.programs (name, code)
 VALUES
     ('Computer Science Engineering Program', 'CSEP');
 
-INSERT INTO university.program_institutions (program_id, institution_id)
+INSERT INTO university.programs_institution (program_id, institution_id)
 VALUES
 (1, 1),
 (1, 2);
@@ -18,7 +18,7 @@ VALUES
 ('Algorithms', 2, 1),
 ('Computer Software technology', 3, 1);
 
-INSERT INTO university.program_branches (program_id, branch_id)
+INSERT INTO university.programs_branches (program_id, branch_id)
 VALUES
 (1, 1),
 (1, 3),
@@ -92,11 +92,11 @@ VALUES
   ('1234567891', 'CS104'),
   ('1234567890', 'CS105');
 
-INSERT INTO university.waitlist (student_social_security_number, course_code)
+INSERT INTO university.waitlists (student_social_security_number, course_code)
 VALUES
   ('1234567890', 'CS101');
 
-INSERT INTO university.Study_administrators (name)
+INSERT INTO university.study_administrators (name)
 VALUES
   ('<NAME>');
 
