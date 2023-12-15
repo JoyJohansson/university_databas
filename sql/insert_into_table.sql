@@ -18,12 +18,6 @@ VALUES
 ('Algorithms', 2, 1),
 ('Computer Software technology', 3, 1);
 
-INSERT INTO university.programs_branches (program_id, branch_id)
-VALUES
-(1, 1),
-(1, 3),
-(1, 2);
-
 INSERT INTO university.classifications (name)
 VALUES
   ('Undergraduate'),
@@ -119,7 +113,7 @@ VALUES
   (1, 'CS103'),
   (1, 'CS104');
 
-INSERT INTO university.courses_classification (course_code, classification_id)
+INSERT INTO university.courses_classifications (course_code, classification_id)
 VALUES
 ('CS101',1),
 ('CS101', 2);

@@ -1,10 +1,3 @@
-'''
-Uppgift 3 Views
-Baserat på din tidigare databas ska du skapa följande views.
-Om du har andra kolumner i dina views, dubbelkolla detta med mig. Dina views kan också vara godkända.
-Inlämning: views.sql med definitionen för alla views.
-'''
-
 -- basic_information(idnr, name, program, branch) Visar information om alla studenter. Branch tillåts vara NULL.
 
 CREATE VIEW university.basic_information
@@ -74,7 +67,7 @@ FROM university.student_course_registrations
 UNION
 SELECT student_social_security_number AS student, course_code,
     CASE
-        WHEN university.waitlist.id IS NOT NULL THEN 'waiting'
+        WHEN university.waitlists.id IS NOT NULL THEN 'waiting'
     END AS status
 FROM university.waitlists
 ORDER BY course_code);
@@ -115,16 +108,16 @@ SELECT
     students.name,
     ROW_NUMBER() 
     OVER (
-        PARTITION BY waitlist.course_code 
-        ORDER BY waitlist.registration_date) 
+        PARTITION BY waitlists.course_code 
+        ORDER BY waitlists.registration_date) 
         AS place
 FROM
     university.waitlists
 JOIN
     university.courses 
-    ON waitlist.course_code = university.courses.code
+    ON waitlists.course_code = university.courses.code
 JOIN
     university.students
-    ON waitlist.student_social_security_number = students.social_security_number);
+    ON waitlists.student_social_security_number = students.social_security_number);
 
 SELECT * FROM university.course_queue_position; 

@@ -35,8 +35,8 @@ CREATE TABLE IF NOT EXISTS university.branches (
     name VARCHAR(255) NOT NULL,
     recommended_courses_requirment_minimum INT,
     program_id INT NOT NULL,
-    FOREIGN KEY (program_id) REFERENCES university.programs (id) ON DELETE CASCADE
-    UNIQUE (name, program_id);
+    FOREIGN KEY (program_id) REFERENCES university.programs (id) ON DELETE CASCADE,
+    UNIQUE (name, program_id)
 );
 
 CREATE TABLE IF NOT EXISTS university.courses (
