@@ -76,7 +76,7 @@ SELECT student_social_security_number AS student, course_code,
     CASE
         WHEN university.waitlist.id IS NOT NULL THEN 'waiting'
     END AS status
-FROM university.waitlist
+FROM university.waitlists
 ORDER BY course_code);
 
 SELECT * FROM university.registrations;
@@ -119,7 +119,7 @@ SELECT
         ORDER BY waitlist.registration_date) 
         AS place
 FROM
-    university.waitlist
+    university.waitlists
 JOIN
     university.courses 
     ON waitlist.course_code = university.courses.code
