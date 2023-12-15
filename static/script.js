@@ -11,8 +11,8 @@
                     .then(response => response.json())
                     .then(data => {
                         console.log(data);
-                        // Update UI with student data
-                        studentsList.innerHTML = ''; // Clear previous content
+                        // Updatera User interface med student data
+                        studentsList.innerHTML = ''; // rensa tidigare innehåll
                         data.forEach(student => {
                             studentsList.innerHTML += `<p>${student[1]}</p>`;
                         });
@@ -26,8 +26,8 @@
                     .then(response => response.json())
                     .then(data => {
                         console.log(data);
-                        // Update User interface with student courses data
-                        coursesList.innerHTML = ''; // Clear previous content
+                        // Updatera User interface med student courses data
+                        coursesList.innerHTML = ''; // rensa tidigare innehåll
                         data.forEach(course => {
                             coursesList.innerHTML += `<p>${course[0]}</p>`;
                         });
@@ -49,7 +49,7 @@
                     .then(response => response.json())
                     .then(data => {
                         console.log(data);
-                        // Update User interface as needed
+                        // updatera User interface efter behov
                     })
                     .catch(error => console.error('Error:', error));
             });
