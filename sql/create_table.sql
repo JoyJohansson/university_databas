@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS university.institutions (
 CREATE TABLE IF NOT EXISTS university.programs (
     id  SERIAL PRIMARY KEY,
     name VARCHAR(255) UNIQUE NOT NULL,
-    code VARCHAR(50) UNIQUE NOT NULL
+    code VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS university.program_institutions (

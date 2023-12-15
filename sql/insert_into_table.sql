@@ -76,11 +76,20 @@ INSERT INTO university.students (social_security_number, name, program_id, branc
   ('1234567891', 'Viktor Bengtsson', 1, 1, 2021, 1, 10),
   ('1234567892', 'Frida Andersson', 1, 1, 2021, 1, 10);
 
+
+INSERT INTO university.student_completed_courses(student_social_security_number,course_code, grade)
+VALUES
+('1234567890', 'CS101', '3'),
+('1234567890', 'CS110', '5'),
+('1234567891', 'CS102', '5'),
+('1234567890', 'CS104', '5'),
+('1234567891', 'CS103', '3'),
+('1234567891', 'CS101', '3');
+
 INSERT INTO university.student_course_registrations (student_social_security_number, course_code)
 VALUES
   ('1234567890', 'CS102'),
-  ('1234567890', 'CS103'),
-  ('1234567890', 'CS104'),
+  ('1234567891', 'CS104'),
   ('1234567890', 'CS105');
 
 INSERT INTO university.waitlist (student_social_security_number, course_code)
@@ -115,9 +124,3 @@ VALUES
 ('CS101',1),
 ('CS101', 2);
 
-INSERT INTO university.student_completed_courses(student_social_security_number,course_code, grade)
-VALUES
-('1234567890', 'CS104', '3'),
-('1234567890', 'CS110', '5'),
-('1234567891', 'CS102', '5'),
-('1234567891', 'CS101', 'U');
